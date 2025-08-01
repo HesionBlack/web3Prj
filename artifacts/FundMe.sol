@@ -14,6 +14,9 @@ contract FundMe {
     uint256 deploymentTimestamp;
     uint256 lockTime;
 
+    address erc20Addr;
+    bool public getFundSuccess = false;
+
     constructor(uint256 _lockTime) {
         dataFeed = AggregatorV3Interface(
             0x694AA1769357215DE4FAC081bf1f309aDC325306
@@ -85,7 +88,13 @@ contract FundMe {
         require(success, "transfer is failed");
         fundersToAmount[msg.sender] = 0;
     }
-
+    
+    function setErc20Address(address _erc20Addr) external {
+        erc20Addr = _erc20Addr;
+    }
+    function setFundToAmount(address funder,uint256 amountToUpdate) external  {
+            // require(msg.sender=erc20Addr,"you do not have ");
+    }
     modifier windowsclose() {
         require(
             block.timestamp >= deploymentTimestamp + lockTime,
